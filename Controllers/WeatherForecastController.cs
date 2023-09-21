@@ -9,14 +9,9 @@ namespace wc1.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        /*private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };*/
-        
+
         private MongoWC mongoDrv = new MongoWC();
         private readonly ILogger<WeatherForecastController> _logger;
-
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
@@ -24,14 +19,14 @@ namespace wc1.Controllers
 
         [HttpGet]
         [Route("weather")]
-        public async  Task<WeatherC> GetWeather(string latitude, string longitude)
+        public async Task<WeatherC> GetWeather(string latitude, string longitude)
         {
             //find xy
             WeatherC exists = await mongoDrv.findByCoordinates(latitude, longitude);
 
             if (exists.Id.Length > 0)
-            {        
-                return exists;                
+            {
+                return exists;
             }
             else
             {

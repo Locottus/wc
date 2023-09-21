@@ -18,9 +18,9 @@ namespace wc1.Models
         public string Tempeture { get; set; } = "";
 
         public string WindDirection { get; set; } = "";
-    
+
         public string WindSpeed { get; set; } = "";
-        
+
         public string Sunrise { get; set; } = "";
 
         public string DateTime { get; set; } = "";
