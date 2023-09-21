@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-
+using System.Net;
+using wc1.Models;
+using wc1.Mongo;
 
 namespace wc1.Controllers
 {
@@ -7,11 +9,12 @@ namespace wc1.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        /*private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
+    };*/
+        
+        private MongoWC mongoDrv = new MongoWC();
         private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
@@ -21,30 +24,42 @@ namespace wc1.Controllers
 
         [HttpGet]
         [Route("weather")]
-        public IEnumerable<WeatherForecast> GetWeather(double lat, double lon)
+        public async  Task<HttpResponseMessage> GetWeather(double latitude, double longitude)
         {
-            Console.WriteLine(lat);
-            Console.WriteLine(lon);
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            //find xy
+            WeatherC wc = new WeatherC();
+            wc.Latitude = latitude;
+            wc.Longitude = longitude;
+            wc.DateTime = DateTime.Now.ToString();
+            wc.City = "";
+            wc.WindDirection = "0";
+            wc.WindSpeed = "0";
+            wc.Tempeture = "0";
+            wc.Sunrise = "6:00am";
+            if ( await mongoDrv.writeToMongo(wc))
+                return new HttpResponseMessage(HttpStatusCode.OK); 
+            else return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
         [HttpGet]
         [Route("weather-bonus")]
-        public IEnumerable<WeatherForecast> GetWeatherBonus(string city)
+        public async Task<HttpResponseMessage> GetWeatherBonus(string city)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            //find city
+
+            WeatherC wc = new WeatherC();
+            wc.Latitude = 0;
+            wc.Longitude = 0;
+            wc.DateTime = DateTime.Now.ToString();
+            wc.City = city;
+            wc.WindDirection = "0";
+            wc.WindSpeed = "0";
+            wc.Tempeture = "0";
+            wc.Sunrise = "6:00am";
+            if (await mongoDrv.writeToMongo(wc))
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            else return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
         }
 
 
