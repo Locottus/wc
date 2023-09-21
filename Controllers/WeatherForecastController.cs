@@ -29,7 +29,7 @@ namespace wc1.Controllers
             //find xy
             WeatherC exists = await mongoDrv.findByCoordinates(latitude, longitude);
 
-            if (exists.Id == "")
+            if (exists.Id.Length > 0)
             {        
                 return exists;                
             }
@@ -43,12 +43,21 @@ namespace wc1.Controllers
 
         [HttpGet]
         [Route("weather-bonus")]
-        public async Task<object> GetWeatherBonus(string city)
+        public async Task<WeatherC> GetWeatherBonus(string city)
         {
             //find city
+            WeatherC exists = await mongoDrv.findByCity(city);
 
-            WeatherC wc = new WeatherC();
-            return wc;
+            if (exists.Id.Length > 0)
+            {
+                return exists;
+            }
+            else
+            {
+                //get from service
+                //await mongoDrv.writeToMongo(wc);
+            }
+            return exists;
         }
 
 
