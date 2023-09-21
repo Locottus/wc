@@ -16,6 +16,11 @@ namespace wc1.Mongo
         private string collectionName = "weather";
         //private int @string = 0;
 
+        /// <summary>
+        /// writes new document to mongo db
+        /// </summary>
+        /// <param name="wc"></param>
+        /// <returns>true if no error, false if something happened</returns>
         public async Task<bool> writeToMongo(WeatherC wc)
         {
             try
@@ -32,6 +37,12 @@ namespace wc1.Mongo
             }
         }
 
+        /// <summary>
+        /// finds the document with the coordinates
+        /// </summary>
+        /// <param name="latitude">latitude</param>
+        /// <param name="longitude">longitude</param>
+        /// <returns>returns the weather in the desired format</returns>
         public async Task<WeatherC> findByCoordinates(string latitude, string longitude)
         {
             var client = new MongoClient(connectionString);
@@ -44,15 +55,13 @@ namespace wc1.Mongo
             );
 
             var result = await collection.Find(filter).ToListAsync();
-
             WeatherC wc = new WeatherC();
-
             foreach (var document in result)
             {
                 wc.Latitude = latitude;
                 wc.Longitude = longitude;
                 wc.DateTime = document["DateTime"].AsString;
-                wc.City = document["City"].AsString;
+                //wc.City = document["City"].AsString;
                 wc.WindDirection = document["WindDirection"].AsString;
                 wc.WindSpeed = document["WindSpeed"].AsString;
                 wc.Tempeture = document["Tempeture"].AsString;
@@ -65,7 +74,7 @@ namespace wc1.Mongo
         }
 
 
-        public async Task<WeatherC> findByCity(string city)
+        /*public async Task<WeatherC> findByCity(string city)
         {
             var client = new MongoClient(connectionString);
 
@@ -91,7 +100,7 @@ namespace wc1.Mongo
 
             }
             return wc;
-        }
+        }*/
 
 
 

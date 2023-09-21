@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[2.21.0, )"
             },
+            "OpenMeteo.dotnet": {
+              "target": "Package",
+              "version": "[0.2.8, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"

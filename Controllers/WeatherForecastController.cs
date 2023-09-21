@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using wc1.Models;
 using wc1.Mongo;
+using wc1.WService;
 
 namespace wc1.Controllers
 {
@@ -11,19 +12,24 @@ namespace wc1.Controllers
     {
 
         private MongoWC mongoDrv = new MongoWC();
+        private WSrv wsrv = new WSrv();
         private readonly ILogger<WeatherForecastController> _logger;
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
+        /// <summary>
+        /// service that gets weather from open service and delivers
+        /// </summary>
+        /// <param name="latitude">latitude</param>
+        /// <param name="longitude">longitude</param>
+        /// <returns>the ofject in the desired format with the data required</returns>
         [HttpGet]
         [Route("weather")]
         public async Task<WeatherC> GetWeather(string latitude, string longitude)
         {
-            //find xy
             WeatherC exists = await mongoDrv.findByCoordinates(latitude, longitude);
-
             if (exists.Id.Length > 0)
             {
                 return exists;
@@ -31,16 +37,19 @@ namespace wc1.Controllers
             else
             {
                 //get from service
-                //await mongoDrv.writeToMongo(wc);
+                var wc = await wsrv.GetWeatherByLatitudAndLongitude(latitude, longitude);
+                await mongoDrv.writeToMongo(wc);
+                return wc;
             }
-            return exists;
+            
         }
-
+        /*
         [HttpGet]
         [Route("weather-bonus")]
         public async Task<WeatherC> GetWeatherBonus(string city)
         {
             //find city
+            var geo = await wsrv.getCoordinates(city);
             WeatherC exists = await mongoDrv.findByCity(city);
 
             if (exists.Id.Length > 0)
@@ -54,7 +63,6 @@ namespace wc1.Controllers
             }
             return exists;
         }
-
-
+        */
     }
 }
