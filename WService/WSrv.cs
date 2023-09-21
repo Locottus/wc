@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using MongoDB.Bson.IO;
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿
 using wc1.Models;
 using System.Text.Json;
-using Microsoft.Extensions.Hosting;
+
 
 namespace wc1.WService
 {

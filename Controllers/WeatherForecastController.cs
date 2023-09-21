@@ -43,26 +43,6 @@ namespace wc1.Controllers
             }
             
         }
-        /*
-        [HttpGet]
-        [Route("weather-bonus")]
-        public async Task<WeatherC> GetWeatherBonus(string city)
-        {
-            //find city
-            var geo = await wsrv.getCoordinates(city);
-            WeatherC exists = await mongoDrv.findByCity(city);
 
-            if (exists.Id.Length > 0)
-            {
-                return exists;
-            }
-            else
-            {
-                //get from service
-                //await mongoDrv.writeToMongo(wc);
-            }
-            return exists;
-        }
-        */
     }
 }

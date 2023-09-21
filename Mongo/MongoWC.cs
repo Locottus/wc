@@ -61,7 +61,6 @@ namespace wc1.Mongo
                 wc.Latitude = latitude;
                 wc.Longitude = longitude;
                 wc.DateTime = document["DateTime"].AsString;
-                //wc.City = document["City"].AsString;
                 wc.WindDirection = document["WindDirection"].AsString;
                 wc.WindSpeed = document["WindSpeed"].AsString;
                 wc.Tempeture = document["Tempeture"].AsString;
@@ -72,36 +71,6 @@ namespace wc1.Mongo
             }
             return wc;
         }
-
-
-        /*public async Task<WeatherC> findByCity(string city)
-        {
-            var client = new MongoClient(connectionString);
-
-            var database = client.GetDatabase(databaseName);
-            var collection = database.GetCollection<BsonDocument>(collectionName);
-
-            var filter = Builders<BsonDocument>.Filter.Eq("City", city);
-            var result = await collection.Find(filter).ToListAsync();
-
-            WeatherC wc = new WeatherC();
-            foreach (var document in result)
-            {
-                wc.Latitude = document["Latitude"].AsString;
-                wc.Longitude = document["Longitude"].AsString;
-                wc.DateTime = document["DateTime"].AsString;
-                wc.City = city;
-                wc.WindDirection = document["WindDirection"].AsString;
-                wc.WindSpeed = document["WindSpeed"].AsString;
-                wc.Tempeture = document["Tempeture"].AsString;
-                wc.Sunrise = document["Sunrise"].AsString;
-                var id = document["_id"];
-                wc.Id = id.ToString();
-
-            }
-            return wc;
-        }*/
-
 
 
     }
