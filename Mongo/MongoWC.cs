@@ -32,7 +32,7 @@ namespace wc1.Mongo
             }
         }
 
-        public async Task<bool> findByCoordinates(double latitude, double longitude)
+        public async Task<WeatherC> findByCoordinates(string latitude, string longitude)
         {
 
             // Establece la conexión al servidor MongoDB
@@ -49,23 +49,32 @@ namespace wc1.Mongo
             );
 
             // Realiza la consulta
-            var result = collection.Find(filter).ToList();
+            var result = await collection.Find(filter).ToListAsync();
 
-            // Itera sobre los resultados encontrados
+            // Itera sobre los resultados
+            WeatherC wc = new WeatherC();
+
             foreach (var document in result)
             {
-                Console.WriteLine(document.ToString()); 
+                wc.Latitude = latitude;
+                wc.Longitude = longitude;
+                wc.DateTime = document["DateTime"].AsString;
+                wc.City = document["City"].AsString;
+                wc.WindDirection = document["WindDirection"].AsString; 
+                wc.WindSpeed = document["WindSpeed"].AsString; 
+                wc.Tempeture = document["Tempeture"].AsString; 
+                wc.Sunrise = document["Sunrise"].AsString;
+                var id = document["_id"];
+                wc.Id = id.ToString(); 
+
             }
 
-            if (result.Count > 0)
-                return true;
-            else
-                return false;
+            return wc;
 
         }
 
 
-        public bool findByCity(string city)
+        public  async Task<WeatherC> findByCity(string city)
         {
             var client = new MongoClient(connectionString);
 
@@ -73,18 +82,27 @@ namespace wc1.Mongo
             var collection = database.GetCollection<BsonDocument>(collectionName);
 
             var filter = Builders<BsonDocument>.Filter.Eq("City", city);
-            var result = collection.Find(filter).ToList();
+            // Realiza la consulta
+            var result = await collection.Find(filter).ToListAsync();
 
-            // Itera sobre los resultados encontrados
+            // Itera sobre los resultados
+            WeatherC wc = new WeatherC();
+
             foreach (var document in result)
             {
-                Console.WriteLine(document.ToString()); 
+                wc.Latitude = document["Latitude"].AsString; ;
+                wc.Longitude = document["Longitude"].AsString; ;
+                wc.DateTime = document["DateTime"].AsString;
+                wc.City = city;
+                wc.WindDirection = document["WindDirection"].AsString; ;
+                wc.WindSpeed = document["WindSpeed"].AsString; ;
+                wc.Tempeture = document["Tempeture"].AsString; ;
+                wc.Sunrise = document["Sunrise"].AsString; ;
+                wc.Id = document["id"].AsString;
+
             }
 
-            if (result.Count > 0)
-                return true;
-            else 
-                return false;
+            return wc;
         }
 
 

@@ -24,42 +24,31 @@ namespace wc1.Controllers
 
         [HttpGet]
         [Route("weather")]
-        public async  Task<HttpResponseMessage> GetWeather(double latitude, double longitude)
+        public async  Task<WeatherC> GetWeather(string latitude, string longitude)
         {
             //find xy
-            WeatherC wc = new WeatherC();
-            wc.Latitude = latitude;
-            wc.Longitude = longitude;
-            wc.DateTime = DateTime.Now.ToString();
-            wc.City = "";
-            wc.WindDirection = "0";
-            wc.WindSpeed = "0";
-            wc.Tempeture = "0";
-            wc.Sunrise = "6:00am";
-            if ( await mongoDrv.writeToMongo(wc))
-                return new HttpResponseMessage(HttpStatusCode.OK); 
-            else return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            WeatherC exists = await mongoDrv.findByCoordinates(latitude, longitude);
+
+            if (exists.Id == "")
+            {        
+                return exists;                
+            }
+            else
+            {
+                //get from service
+                //await mongoDrv.writeToMongo(wc);
+            }
+            return exists;
         }
 
         [HttpGet]
         [Route("weather-bonus")]
-        public async Task<HttpResponseMessage> GetWeatherBonus(string city)
+        public async Task<object> GetWeatherBonus(string city)
         {
             //find city
 
             WeatherC wc = new WeatherC();
-            wc.Latitude = 0;
-            wc.Longitude = 0;
-            wc.DateTime = DateTime.Now.ToString();
-            wc.City = city;
-            wc.WindDirection = "0";
-            wc.WindSpeed = "0";
-            wc.Tempeture = "0";
-            wc.Sunrise = "6:00am";
-            if (await mongoDrv.writeToMongo(wc))
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            else return new HttpResponseMessage(HttpStatusCode.BadRequest);
-
+            return wc;
         }
 
 
