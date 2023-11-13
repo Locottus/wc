@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yKGd1++PL/NTHS2M07pAvrigBKAYxFjhoOT4Cv5kM5Ed2nk7+elkCTlqLuc6B+Nxtqm339h30es59XlwSihdcQ==",
+  "dgSpecHash": "alJWbs5oDN9nOnmoV5vuoEe4UUilpI4ltu55sViUgy5xDS66AghB12ON+sEeEW8SsxxpNelvXAPrcv/vPZtvMg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\herlich\\source\\repos\\wc1\\wc1\\wc1.csproj",
+  "projectFilePath": "C:\\angular\\wc\\wc1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\herlich\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\herlich\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

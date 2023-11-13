@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\herlich\\source\\repos\\wc1\\wc1\\wc1.csproj": {}
+    "C:\\angular\\wc\\wc1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\herlich\\source\\repos\\wc1\\wc1\\wc1.csproj": {
+    "C:\\angular\\wc\\wc1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\herlich\\source\\repos\\wc1\\wc1\\wc1.csproj",
+        "projectUniqueName": "C:\\angular\\wc\\wc1.csproj",
         "projectName": "wc1",
-        "projectPath": "C:\\Users\\herlich\\source\\repos\\wc1\\wc1\\wc1.csproj",
+        "projectPath": "C:\\angular\\wc\\wc1.csproj",
         "packagesPath": "C:\\Users\\herlich\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\herlich\\source\\repos\\wc1\\wc1\\obj\\",
+        "outputPath": "C:\\angular\\wc\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -76,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

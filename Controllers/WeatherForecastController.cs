@@ -40,8 +40,7 @@ namespace wc1.Controllers
                 var wc = await wsrv.GetWeatherByLatitudAndLongitude(latitude, longitude);
                 await mongoDrv.writeToMongo(wc);
                 return wc;
-            }
-            
+            }            
         }
 
     }
